@@ -1,0 +1,12 @@
+
+body {
+  padding: 30px;
+}
+li {
+  display: flex;
+}
+button {
+  margin-left: 5px;
+  padding: 0px;
+  width: 100px;
+}
