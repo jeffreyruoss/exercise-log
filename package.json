@@ -1,0 +1,12 @@
+{
+  "name": "exercise-log",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "echo \"use VS Code live server for now..\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
