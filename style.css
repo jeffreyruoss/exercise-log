@@ -1,19 +1,30 @@
 
 body {
-  padding: 30px;
+  padding: 30px 0;
+}
+#exercise-list input {
+  margin-bottom: 0;
+  border: none;
+  padding: 0 15px;
+  height: 20px;
 }
 li {
+  margin-bottom: 0;
+  height: 40px;
   display: flex;
 }
+li:hover {
+  filter: brightness(150%);
+}
 button {
+  margin-bottom: 5px;
   margin-left: 5px;
-  padding: 0px;
+  padding: 0 5px;
   width: 100px;
 }
 .paused {
   opacity: 0.5;
 }
-.edit-mode {
-  background-color: #f6f8fa;
+.edit-mode input {
   border: 1px solid #d1d5da;
 }
