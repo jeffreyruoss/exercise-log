@@ -13,3 +13,7 @@ button {
 .paused {
   opacity: 0.5;
 }
+.edit-mode {
+  background-color: #f6f8fa;
+  border: 1px solid #d1d5da;
+}

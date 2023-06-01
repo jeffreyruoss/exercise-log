@@ -40,13 +40,17 @@ function render() {
 
   const sortedExercises = exercises.sort((a, b) => a.timestamp - b.timestamp);
 
-  sortedExercises.forEach((exercise) => {
+  sortedExercises.forEach((exercise, index) => {
     const li = document.createElement('li');
+    li.id = `li-${index}`;
     const timestampString = exercise.timestamp.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
     li.innerHTML = `
-      <span>${exercise.name} <span class="timestamp">(${timestampString})</span></span>
+      <input id="name-${index}" type="text" value="${exercise.name}" readonly /> 
+      <input id="timestamp-${index}" type="text" value="${timestampString}" readonly />
       <button onclick="markAsDone('${exercise.name}')">DONE</button>
-      <button onclick="togglePause('${exercise.name}')">${exercise.paused ? 'UNPAUSE' : 'PAUSE'}</button> <!-- New button -->
+      <button onclick="togglePause('${exercise.name}')">${exercise.paused ? 'UNPAUSE' : 'PAUSE'}</button> 
+      <button onclick="editExercise(${index})">EDIT</button> 
+      <button onclick="saveExercise(${index})">SAVE</button>
     `;
 
     if (exercise.paused) {
@@ -62,7 +66,6 @@ window.markAsDone = (name) => {
   const exercise = exercises.find((ex) => ex.name === name);
   if (exercise) {
     exercise.updateTimestamp();
-    // Save to local storage
     localStorage.setItem('exercises', JSON.stringify(exercises));
     render();
   }
@@ -72,11 +75,28 @@ window.togglePause = (name) => {
   const exercise = exercises.find((ex) => ex.name === name);
   if (exercise) {
     exercise.paused = !exercise.paused;
-    // Save to local storage
     localStorage.setItem('exercises', JSON.stringify(exercises));
     render();
   }
 };
 
+window.editExercise = (index) => {
+  document.getElementById(`name-${index}`).readOnly = false;
+  document.getElementById(`timestamp-${index}`).readOnly = false;
+  document.getElementById(`li-${index}`).classList.add('edit-mode');
+};
+
+window.saveExercise = (index) => {
+  let name = document.getElementById(`name-${index}`).value;
+  let timestamp = new Date(document.getElementById(`timestamp-${index}`).value);
+  
+  exercises[index].name = name;
+  exercises[index].timestamp = timestamp;
+  localStorage.setItem('exercises', JSON.stringify(exercises));
+  
+  document.getElementById(`name-${index}`).readOnly = true;
+  document.getElementById(`timestamp-${index}`).readOnly = true;
+  document.getElementById(`li-${index}`).classList.remove('edit-mode');
+};
 
 render();
