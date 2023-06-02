@@ -34,30 +34,39 @@ if (exercises) {
 
 function render() {
   const list = document.getElementById('exercise-list');
-  const pausedList = document.getElementById('paused-exercise-list'); // New list for paused exercises
+  const pausedList = document.getElementById('paused-exercise-list'); 
   list.innerHTML = '';
   pausedList.innerHTML = '';
 
   const sortedExercises = exercises.sort((a, b) => a.timestamp - b.timestamp);
 
   sortedExercises.forEach((exercise, index) => {
-    const li = document.createElement('li');
+    const template = document.getElementById('exercise-template');
+    const clone = template.content.cloneNode(true);
+    const li = clone.querySelector('li');
     li.id = `li-${index}`;
+
+    const nameInput = clone.querySelector('.name');
+    nameInput.id = `name-${index}`;
+    nameInput.value = exercise.name;
+
     const timestampString = exercise.timestamp.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
-    li.innerHTML = `
-      <input id="name-${index}" type="text" value="${exercise.name}" readonly /> 
-      <input id="timestamp-${index}" type="text" value="${timestampString}" readonly />
-      <button onclick="markAsDone('${exercise.name}')">DONE</button>
-      <button onclick="togglePause('${exercise.name}')">${exercise.paused ? 'UNPAUSE' : 'PAUSE'}</button> 
-      <button onclick="editExercise(${index})">EDIT</button> 
-      <button onclick="saveExercise(${index})">SAVE</button>
-    `;
+    const timestampInput = clone.querySelector('.timestamp');
+    timestampInput.id = `timestamp-${index}`;
+    timestampInput.value = timestampString;
+
+    clone.querySelector('.done').onclick = () => markAsDone(exercise.name);
+    const pauseButton = clone.querySelector('.pause');
+    pauseButton.onclick = () => togglePause(exercise.name);
+    pauseButton.textContent = exercise.paused ? 'UNPAUSE' : 'PAUSE';
+    clone.querySelector('.edit').onclick = () => editExercise(index);
+    clone.querySelector('.save').onclick = () => saveExercise(index);
 
     if (exercise.paused) {
       li.classList.add('paused');
-      pausedList.appendChild(li);
+      pausedList.appendChild(clone);
     } else {
-      list.appendChild(li);
+      list.appendChild(clone);
     }
   });
 }

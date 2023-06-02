@@ -10,6 +10,18 @@
   <body>
     <ul id="exercise-list"></ul>
     <ul id="paused-exercise-list"></ul>
+
+    <template id="exercise-template">
+      <li>
+        <input class="name" type="text" readonly /> 
+        <input class="timestamp" type="text" readonly />
+        <button class="done">DONE</button>
+        <button class="pause">PAUSE</button>
+        <button class="edit">EDIT</button>
+        <button class="save">SAVE</button>
+      </li>
+    </template>
+
     <script src="app.js"></script>
   </body>
 </html>
