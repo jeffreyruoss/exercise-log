@@ -61,6 +61,7 @@ function render() {
     pauseButton.textContent = exercise.paused ? 'UNPAUSE' : 'PAUSE';
     clone.querySelector('.edit').onclick = () => editExercise(index);
     clone.querySelector('.save').onclick = () => saveExercise(index);
+    clone.querySelector('.delete').onclick = () => deleteExercise(index);
 
     if (exercise.paused) {
       li.classList.add('paused');
@@ -107,6 +108,13 @@ window.saveExercise = (index) => {
   document.getElementById(`timestamp-${index}`).readOnly = true;
   document.getElementById(`li-${index}`).classList.remove('edit-mode');
 };
+
+window.deleteExercise = (index) => {
+  exercises.splice(index, 1); // Remove the exercise from the array
+  localStorage.setItem('exercises', JSON.stringify(exercises)); // Save the updated array to localStorage
+  render(); // Re-render the updated list
+};
+
 
 render();
 
