@@ -109,3 +109,21 @@ window.saveExercise = (index) => {
 };
 
 render();
+
+/**
+ * Add new exercise
+ */
+const form = document.getElementById('new-exercise-form');
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const nameInput = document.getElementById('new-exercise-name');
+  const name = nameInput.value.trim();
+  if (name) {
+    const exercise = new Exercise(name);
+    exercises.push(exercise); 
+    localStorage.setItem('exercises', JSON.stringify(exercises));
+    nameInput.value = ''; 
+    render();
+  }
+});
+
