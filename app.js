@@ -110,10 +110,13 @@ window.saveExercise = (index) => {
 };
 
 window.deleteExercise = (index) => {
-  exercises.splice(index, 1); // Remove the exercise from the array
-  localStorage.setItem('exercises', JSON.stringify(exercises)); // Save the updated array to localStorage
-  render(); // Re-render the updated list
+  if (confirm('Are you sure you want to delete this exercise?')) {
+    exercises.splice(index, 1);
+    localStorage.setItem('exercises', JSON.stringify(exercises));
+    render();
+  }
 };
+
 
 
 render();
