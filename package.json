@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "echo \"use VS Code live server for now..\" && exit 1"
+    "start": "n 18.13.0 && browser-sync start --server --files 'index.html, app.js, style.css' --port 5500"
   },
   "keywords": [],
   "author": "",
