@@ -5,6 +5,13 @@ body {
 .flex {
   display: flex;
 }
+.label {
+  display: inline;
+  color: #677482;
+}
+#last-updated {
+  color: #468FAA;
+}
 .exercise-lists {
   & ul {
     padding-left: 0;
