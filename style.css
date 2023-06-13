@@ -22,9 +22,11 @@ body {
   }
   & li {
     margin-bottom: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-    
+    border-top: 1px solid #18252f !important;
     align-items: center;
+  }
+  & li:nth-child(odd) {
+    background-color: #131e25;
   }
   & li > * {
     margin-bottom: 0 !important;
@@ -36,6 +38,7 @@ body {
   }
   & button {
     margin-left: 5px;
+    border: none;
     padding: 0 5px;
     width: 120px;
   }
@@ -44,7 +47,11 @@ body {
     display: flex;
   }
   & li:hover {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: #192833;
+    cursor: pointer;
+    & input {
+      cursor: pointer;
+    }
   }
   & .paused {
     opacity: 0.4;
@@ -55,4 +62,17 @@ body {
   & .timestamp {
     max-width: 170px;
   }
+}
+.done {
+  background-color: #28a745;
+}
+.delete {
+  background-color: #b4231b;
+}
+.pause {
+  background-color: #CA7D12;
+}
+button[type="submit"] {
+  background-color: #28a745;
+  border: none;
 }
