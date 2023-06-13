@@ -32,6 +32,26 @@ if (exercises) {
   ].map((name) => new Exercise(name));
 }
 
+function loadLastUpdated() {
+  const lastUpdated = document.querySelector('#last-updated');
+  const timestamp = localStorage.getItem('last-updated');
+
+  if (timestamp) {
+    lastUpdated.textContent = timestamp;
+  }
+}
+
+function updateLastUpdated() {
+  const now = new Date();
+  const timestamp = formatTimestamp(now);
+  
+  const lastUpdated = document.querySelector('#last-updated');
+  lastUpdated.textContent = timestamp;
+
+  localStorage.setItem('last-updated', timestamp);
+}
+
+
 function render() {
   const list = document.getElementById('exercise-list');
   const pausedList = document.getElementById('paused-exercise-list'); 
@@ -79,6 +99,7 @@ window.markAsDone = (name) => {
     localStorage.setItem('exercises', JSON.stringify(exercises));
     render();
   }
+  updateLastUpdated();
 };
 
 window.togglePause = (name) => {
@@ -88,6 +109,7 @@ window.togglePause = (name) => {
     localStorage.setItem('exercises', JSON.stringify(exercises));
     render();
   }
+  updateLastUpdated();
 };
 
 window.editExercise = (index) => {
@@ -107,6 +129,8 @@ window.saveExercise = (index) => {
   document.getElementById(`name-${index}`).readOnly = true;
   document.getElementById(`timestamp-${index}`).readOnly = true;
   document.getElementById(`li-${index}`).classList.remove('edit-mode');
+
+  updateLastUpdated();
 };
 
 window.deleteExercise = (index) => {
@@ -114,10 +138,9 @@ window.deleteExercise = (index) => {
     exercises.splice(index, 1);
     localStorage.setItem('exercises', JSON.stringify(exercises));
     render();
+    updateLastUpdated();
   }
 };
-
-
 
 render();
 
@@ -136,5 +159,19 @@ form.addEventListener('submit', (event) => {
     nameInput.value = ''; 
     render();
   }
+  updateLastUpdated();
 });
 
+function formatTimestamp(timestamp) {
+  const options = { 
+    weekday: 'short', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric', 
+    hour: 'numeric', 
+    minute: 'numeric' 
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(timestamp);
+}
+
+loadLastUpdated();
