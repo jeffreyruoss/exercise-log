@@ -4,55 +4,42 @@ class Exercise {
     this.timestamp = timestamp || this.generateRandomTimestamp();
     this.paused = paused;
   }
+
+  generateRandomTimestamp() {
+    const now = new Date().getTime();
+    const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
+    return new Date(oneWeekAgo + Math.random() * (now - oneWeekAgo));
+  }
+
+  updateTimestamp() {
+    this.timestamp = new Date();
+  }
 }
 
-Exercise.prototype.generateRandomTimestamp = function() {
-  const now = new Date().getTime();
-  const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
-  return new Date(oneWeekAgo + Math.random() * (now - oneWeekAgo));
-};
+let exercises = JSON.parse(localStorage.getItem('exercises') || "[]").map(exercise => 
+  new Exercise(exercise.name, new Date(exercise.timestamp), exercise.paused)
+);
 
-Exercise.prototype.updateTimestamp = function() {
-  this.timestamp = new Date();
-};
-
-let exercises = localStorage.getItem('exercises');
-
-if (exercises) {
-  exercises = JSON.parse(exercises).map((exercise) => {
-    let ex = new Exercise(exercise.name, new Date(exercise.timestamp), exercise.paused);
-    Object.setPrototypeOf(ex, Exercise.prototype);
-    return ex;
-  });
-} else {
-  exercises = [
-    'exercise 1',
-    'exercise 2',
-    'exercise 3'
-  ].map((name) => new Exercise(name));
+if (!exercises.length) {
+  exercises = ['exercise 1', 'exercise 2', 'exercise 3'].map(name => new Exercise(name));
 }
 
-function loadLastUpdated() {
+const loadLastUpdated = () => {
   const lastUpdated = document.querySelector('#last-updated');
   const timestamp = localStorage.getItem('last-updated');
-
   if (timestamp) {
     lastUpdated.textContent = timestamp;
   }
 }
 
-function updateLastUpdated() {
+const updateLastUpdated = () => {
   const now = new Date();
   const timestamp = formatTimestamp(now);
-  
-  const lastUpdated = document.querySelector('#last-updated');
-  lastUpdated.textContent = timestamp;
-
+  document.querySelector('#last-updated').textContent = timestamp;
   localStorage.setItem('last-updated', timestamp);
 }
 
-
-function render() {
+const render = () => {
   const list = document.getElementById('exercise-list');
   const pausedList = document.getElementById('paused-exercise-list'); 
   list.innerHTML = '';
@@ -92,7 +79,7 @@ function render() {
   });
 }
 
-window.markAsDone = (name) => {
+window.markAsDone = name => {
   const exercise = exercises.find((ex) => ex.name === name);
   if (exercise) {
     exercise.updateTimestamp();
@@ -102,7 +89,7 @@ window.markAsDone = (name) => {
   updateLastUpdated();
 };
 
-window.togglePause = (name) => {
+window.togglePause = name => {
   const exercise = exercises.find((ex) => ex.name === name);
   if (exercise) {
     exercise.paused = !exercise.paused;
@@ -112,13 +99,13 @@ window.togglePause = (name) => {
   updateLastUpdated();
 };
 
-window.editExercise = (index) => {
+window.editExercise = index => {
   document.getElementById(`name-${index}`).readOnly = false;
   document.getElementById(`timestamp-${index}`).readOnly = false;
   document.getElementById(`li-${index}`).classList.add('edit-mode');
 };
 
-window.saveExercise = (index) => {
+window.saveExercise = index => {
   let name = document.getElementById(`name-${index}`).value;
   let timestamp = new Date(document.getElementById(`timestamp-${index}`).value);
   
@@ -133,7 +120,7 @@ window.saveExercise = (index) => {
   updateLastUpdated();
 };
 
-window.deleteExercise = (index) => {
+window.deleteExercise = index => {
   if (confirm('Are you sure you want to delete this exercise?')) {
     exercises.splice(index, 1);
     localStorage.setItem('exercises', JSON.stringify(exercises));
@@ -142,27 +129,21 @@ window.deleteExercise = (index) => {
   }
 };
 
-render();
-
-/**
- * Add new exercise
- */
 const form = document.getElementById('new-exercise-form');
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const nameInput = document.getElementById('new-exercise-name');
   const name = nameInput.value.trim();
   if (name) {
-    const exercise = new Exercise(name);
-    exercises.push(exercise); 
+    exercises.push(new Exercise(name)); 
     localStorage.setItem('exercises', JSON.stringify(exercises));
     nameInput.value = ''; 
     render();
+    updateLastUpdated();
   }
-  updateLastUpdated();
 });
 
-function formatTimestamp(timestamp) {
+const formatTimestamp = timestamp => {
   const options = { 
     weekday: 'short', 
     year: 'numeric', 
@@ -174,4 +155,5 @@ function formatTimestamp(timestamp) {
   return new Intl.DateTimeFormat('en-US', options).format(timestamp);
 }
 
+render();
 loadLastUpdated();
