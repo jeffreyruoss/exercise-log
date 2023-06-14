@@ -69,8 +69,6 @@ const render = () => {
     const pauseButton = clone.querySelector('.pause');
     pauseButton.onclick = () => togglePause(exercise.name);
     pauseButton.textContent = exercise.paused ? 'UNPAUSE' : 'PAUSE';
-    clone.querySelector('.edit').onclick = () => editExercise(index);
-    clone.querySelector('.save').onclick = () => saveExercise(index);
     clone.querySelector('.delete').onclick = () => deleteExercise(index);
 
     if (exercise.paused) {
@@ -127,12 +125,9 @@ window.saveExercise = index => {
   exercises[index].name = name;
   exercises[index].timestamp = timestamp;
   localStorage.setItem('exercises', JSON.stringify(exercises));
-  
-  document.getElementById(`name-${index}`).readOnly = true;
-  document.getElementById(`timestamp-${index}`).readOnly = true;
-  document.getElementById(`li-${index}`).classList.remove('edit-mode');
 
   updateLastUpdated();
+  render();
 };
 
 window.deleteExercise = index => {
