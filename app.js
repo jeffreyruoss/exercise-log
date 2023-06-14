@@ -53,14 +53,17 @@ const render = () => {
     const li = clone.querySelector('li');
     li.id = `li-${index}`;
 
+
     const nameInput = clone.querySelector('.name');
     nameInput.id = `name-${index}`;
     nameInput.value = exercise.name;
+    nameInput.addEventListener('click', () => editExercise(index));
 
     const timestampString = exercise.timestamp.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
     const timestampInput = clone.querySelector('.timestamp');
     timestampInput.id = `timestamp-${index}`;
     timestampInput.value = timestampString;
+    timestampInput.addEventListener('click', () => editExercise(index));
 
     clone.querySelector('.done').onclick = () => markAsDone(exercise.name);
     const pauseButton = clone.querySelector('.pause');
@@ -99,10 +102,22 @@ window.togglePause = name => {
   updateLastUpdated();
 };
 
-window.editExercise = index => {
+const editExercise = index => {
   document.getElementById(`name-${index}`).readOnly = false;
   document.getElementById(`timestamp-${index}`).readOnly = false;
   document.getElementById(`li-${index}`).classList.add('edit-mode');
+  
+  document.getElementById(`name-${index}`).addEventListener('keypress', event => {
+    if (event.key === 'Enter') {
+      saveExercise(index);
+    }
+  });
+  
+  document.getElementById(`timestamp-${index}`).addEventListener('keypress', event => {
+    if (event.key === 'Enter') {
+      saveExercise(index);
+    }
+  });
 };
 
 window.saveExercise = index => {
