@@ -39,8 +39,8 @@ body {
   & button {
     margin-left: 5px;
     border: none;
-    padding: 0 5px;
-    width: 120px;
+    padding: 0 10px;
+    width: auto;
   }
   & li {
     border: 1px solid transparent;
