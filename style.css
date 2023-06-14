@@ -12,6 +12,27 @@ body {
 #last-updated {
   color: #468FAA;
 }
+
+
+/* Temp mobile styles until I redo responsive */
+@media (min-width: 0) and (max-width: 767px) {
+  .exercise-lists ul {
+    & input {
+      padding-left: 2px !important;
+      padding-right: 2px !important;
+      font-size: 14px;
+    }
+    & .pause,
+    & .delete {
+      display: none;
+    }
+    & .timestamp {
+      max-width: 50px;
+    }
+  }
+}
+
+
 .exercise-lists {
   & ul {
     padding-left: 0;
