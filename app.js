@@ -1,3 +1,12 @@
+const localTopBar = () => {
+  const topBar = document.getElementById('top-bar');
+  if (window.location.hostname === 'localhost') {
+    topBar.style.display = 'block';
+  }
+}
+localTopBar();
+
+
 class Exercise {
   constructor(name, timestamp = null, paused = false) {
     this.name = name;

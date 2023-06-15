@@ -9,33 +9,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <p class="last-updated-container"><span class="label">Last updated:</span> <span id="last-updated">Never</span></p>
-
-    <form id="new-exercise-form" class="flex">
-      <input id="new-exercise-name" type="text" placeholder="New exercise" required />
-      <button type="submit" style="margin-left: 15px;">Add Exercise</button>
-    </form>
-
-    <div class="exercise-lists">
-      <h2>Today's exercises</h2>
-      <ul id="today-exercise-list"></ul>
-
-      <h2>Exercises</h2>
-
-      <ul id="exercise-list"></ul>
-      <h2>Paused</h2>
-      <ul id="paused-exercise-list"></ul>
+    <div id="top-bar" class="pulse">
+      <span class="top-bar-title">LOCAL</span>
     </div>
 
-    <template id="exercise-template">
-      <li>
-        <input class="name" type="text" readonly /> 
-        <input class="timestamp" type="text" readonly />
-        <button class="done">✓</button>
-        <button class="pause">PAUSE</button>
-        <button class="delete">✕</button>
-      </li>
-    </template>
+    <div class="site-wrap">
+      <p class="last-updated-container"><span class="label">Last updated:</span> <span id="last-updated">Never</span></p>
+
+      <form id="new-exercise-form" class="flex">
+        <input id="new-exercise-name" type="text" placeholder="New exercise" required />
+        <button type="submit" style="margin-left: 15px;">Add Exercise</button>
+      </form>
+  
+      <div class="exercise-lists">
+        <h2>Today's exercises</h2>
+        <ul id="today-exercise-list"></ul>
+  
+        <h2>Exercises</h2>
+  
+        <ul id="exercise-list"></ul>
+        <h2>Paused</h2>
+        <ul id="paused-exercise-list"></ul>
+      </div>
+  
+      <template id="exercise-template">
+        <li>
+          <input class="name" type="text" readonly /> 
+          <input class="timestamp" type="text" readonly />
+          <button class="done">✓</button>
+          <button class="pause">PAUSE</button>
+          <button class="delete">✕</button>
+        </li>
+      </template>
+    </div>
 
     <script src="app.js"></script>
   </body>
