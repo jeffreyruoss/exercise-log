@@ -23,11 +23,13 @@
       </form>
   
       <div class="exercise-lists">
-        <h2>Today's exercises</h2>
-        <ul id="today-exercise-list"></ul>
+        <h2>Today's Exercise Plan</h2>
+        <ul id="today-exercise-plan-list"></ul>
+
+        <h2>Available Exercises for Today</h2>
+        <ul id="available-exercises"></ul>
   
-        <h2>Exercises</h2>
-  
+        <h2>Recent Exercises for Rest and Recovery</h2>
         <ul id="exercise-list"></ul>
         <h2>Paused</h2>
         <ul id="paused-exercise-list"></ul>
@@ -37,6 +39,7 @@
         <li>
           <input class="name" type="text" readonly /> 
           <input class="timestamp" type="text" readonly />
+          <button class="up">&uarr;</button>
           <button class="done">✓</button>
           <button class="pause">PAUSE</button>
           <button class="delete">✕</button>

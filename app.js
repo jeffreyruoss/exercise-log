@@ -8,10 +8,11 @@ localTopBar();
 
 
 class Exercise {
-  constructor(name, timestamp = null, paused = false) {
+  constructor(name, timestamp = null, paused = false, up = false) {
     this.name = name;
     this.timestamp = timestamp || this.generateRandomTimestamp();
     this.paused = paused;
+    this.up = up;
   }
 
   generateRandomTimestamp() {
@@ -26,7 +27,7 @@ class Exercise {
 }
 
 let exercises = JSON.parse(localStorage.getItem('exercises') || "[]").map(exercise => 
-  new Exercise(exercise.name, new Date(exercise.timestamp), exercise.paused)
+  new Exercise(exercise.name, new Date(exercise.timestamp), exercise.paused, exercise.up)
 );
 
 if (!exercises.length) {
@@ -51,8 +52,11 @@ const updateLastUpdated = () => {
 const render = () => {
   const list = document.getElementById('exercise-list');
   const pausedList = document.getElementById('paused-exercise-list'); 
+  const todayList = document.getElementById('today-exercise-plan-list');
+
   list.innerHTML = '';
   pausedList.innerHTML = '';
+  todayList.innerHTML = '';
 
   const sortedExercises = exercises.sort((a, b) => a.timestamp - b.timestamp);
 
@@ -74,6 +78,7 @@ const render = () => {
     timestampInput.value = timestampString;
     timestampInput.addEventListener('click', () => editExercise(index));
 
+    clone.querySelector('.up').onclick = () => moveUp(exercise.name);
     clone.querySelector('.done').onclick = () => markAsDone(exercise.name);
     const pauseButton = clone.querySelector('.pause');
     pauseButton.onclick = () => togglePause(exercise.name);
@@ -83,16 +88,29 @@ const render = () => {
     if (exercise.paused) {
       li.classList.add('paused');
       pausedList.appendChild(clone);
+    } else if (exercise.up) {
+      todayList.appendChild(clone);
     } else {
       list.appendChild(clone);
     }
   });
 }
 
+window.moveUp = name => {
+  const exercise = exercises.find((ex) => ex.name === name);
+  if (exercise) {
+    exercise.up = true;
+    localStorage.setItem('exercises', JSON.stringify(exercises));
+    render();
+  }
+  updateLastUpdated();
+};
+
 window.markAsDone = name => {
   const exercise = exercises.find((ex) => ex.name === name);
   if (exercise) {
     exercise.updateTimestamp();
+    exercise.up = false;  // Move the exercise back to the default list
     localStorage.setItem('exercises', JSON.stringify(exercises));
     render();
   }
