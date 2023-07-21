@@ -99,12 +99,12 @@ const render = () => {
 window.moveUp = name => {
   const exercise = exercises.find((ex) => ex.name === name);
   if (exercise) {
-    exercise.up = true;
+    exercise.up = !exercise.up;
     localStorage.setItem('exercises', JSON.stringify(exercises));
     render();
   }
   updateLastUpdated();
-};
+};  
 
 window.markAsDone = name => {
   const exercise = exercises.find((ex) => ex.name === name);
