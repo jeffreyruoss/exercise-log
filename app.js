@@ -192,5 +192,24 @@ const formatTimestamp = timestamp => {
   return new Intl.DateTimeFormat('en-US', options).format(timestamp);
 }
 
+const notificationBar = document.getElementById('notification-bar');
+const showNotification = (message, type = 'success') => {
+  notificationBar.textContent = message;
+  notificationBar.classList.add(type, 'show');
+  setTimeout(() => {
+    notificationBar.textContent = '';
+    notificationBar.classList.remove(type, 'show');
+  }, 3000);
+}
+
+const saveExerciseToClipboard = () => {
+  const exercisesString = JSON.stringify(exercises);
+  navigator.clipboard.writeText(exercisesString);
+  showNotification('Copied to clipboard', 'success');
+};
+const saveButton = document.getElementById('save-button');
+saveButton.addEventListener('click', saveExerciseToClipboard);
+
+
 render();
 loadLastUpdated();

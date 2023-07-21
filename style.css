@@ -1,5 +1,3 @@
-
-
 /*
  * Top bar
  */
@@ -24,6 +22,16 @@
   /* pulse 3 times, 600ms, good timing function for pulse */
   animation: pulse 300ms cubic-bezier(0.4, 0, 0.6, 1) 3;
   
+}
+.notification-bar {
+  display: none;
+  padding: 5px;
+  background-color: #2095C1;
+  text-align: center;
+  color: #fff;
+  &.show {
+    display: block;
+  }
 }
 
 /*
@@ -50,7 +58,6 @@
   color: #468FAA;
 }
 
-
 /* Temp mobile styles until I redo responsive */
 @media (min-width: 0) and (max-width: 767px) {
   .exercise-lists ul {
@@ -69,7 +76,17 @@
   }
 }
 
-
+.add-exercise-button {
+  width: 250px;
+  background-color: #28a745;
+  border: none;
+}
+.save-button {
+  margin-left: auto;
+  margin-right: 0;
+  max-width: 200px;
+  height: 62px;
+}
 .exercise-lists {
   & ul {
     padding-left: 0;
@@ -129,8 +146,4 @@
 }
 .pause {
   background-color: #CA7D12;
-}
-button[type="submit"] {
-  background-color: #28a745;
-  border: none;
 }

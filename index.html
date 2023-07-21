@@ -14,13 +14,17 @@
       <span class="top-bar-title">LOCAL</span>
     </div>
 
+    <div id="notification-bar" class="notification-bar"></div>
+
     <div class="site-wrap">
       <p class="last-updated-container"><span class="label">Last updated:</span> <span id="last-updated">Never</span></p>
-
-      <form id="new-exercise-form" class="flex">
-        <input id="new-exercise-name" type="text" placeholder="New exercise" required />
-        <button type="submit" style="margin-left: 15px;">Add Exercise</button>
-      </form>
+      <div class="grid">
+        <form id="new-exercise-form" class="flex">
+          <input id="new-exercise-name" type="text" placeholder="New exercise" required />
+          <button type="submit" class="add-exercise-button" style="margin-left: 15px;">Add Exercise</button>
+        </form>
+        <button id="save-button" class="save-button">Save (cmd + s)</button>
+      </div>
   
       <div class="exercise-lists">
         <h2>Today's Exercise Plan</h2>
@@ -38,6 +42,7 @@
       <template id="exercise-template">
         <li>
           <input class="name" type="text" readonly /> 
+          <input class="tags" type="text" value="Add tags" readonly />
           <input class="timestamp" type="text" readonly />
           <button class="up">&uarr;</button>
           <button class="done">✓</button>
