@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exercise Tracker</title>
+    <!-- pico css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <!-- custom css -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/assets/favicon-d61e6379.webp" type="image/x-icon" />
+    <script type="module" crossorigin src="/assets/index-c496c07a.js"></script>
+    <link rel="stylesheet" href="/assets/index-f39036c9.css">
+  </head>
+  <body>
+    <div id="top-bar" class="pulse">
+      <span class="top-bar-title">LOCAL</span>
+    </div>
+
+    <div id="notification-bar" class="notification-bar"></div>
+
+    <div class="container">
+      <h2>Register</h2>
+      <form id="register-form" class="flex">
+        <input id="register-email" type="email" placeholder="Email" required />
+        <input id="register-password" type="password" placeholder="Password" required />
+        <button type="submit" class="register-button">Register</button>
+      </form>
+    </div>
+
+    <div class="container">
+      <button id="logout-button">Log out</button>
+    </div>
+
+    <div class="container">
+      <h2>Log in</h2>
+      <form id="login-form" class="flex">
+        <input id="login-email" type="email" placeholder="Email" required />
+        <input id="login-password" type="password" placeholder="Password" required />
+        <button type="submit" class="login-button">Log in</button>
+      </form>
+    </div>
+
+    <div class="site-wrap">
+      <p class="last-updated-container"><span class="label">Last updated:</span> <span id="last-updated">Never</span></p>
+      <div class="grid">
+        <form id="new-exercise-form" class="flex">
+          <input id="new-exercise-name" type="text" placeholder="New exercise" required />
+          <button type="submit" class="add-exercise-button" style="margin-left: 15px;">Add Exercise</button>
+        </form>
+        <button id="save-button" class="save-button">Save (cmd + s)</button>
+      </div>
+  
+      <div class="exercise-lists">
+        <h2>Today's Exercise Plan</h2>
+        <ul id="today-exercise-plan-list"></ul>
+
+        <h2>Available Exercises for Today</h2>
+        <ul id="available-exercises"></ul>
+  
+        <h2>Recent Exercises for Rest and Recovery</h2>
+        <ul id="exercise-list"></ul>
+        <h2>Paused</h2>
+        <ul id="paused-exercise-list"></ul>
+      </div>
+  
+      <template id="exercise-template">
+        <li>
+          <input class="name" type="text" readonly /> 
+          <input class="tags" type="text" value="Add tags" readonly />
+          <input class="timestamp" type="text" readonly />
+          <button class="up">&uarr;</button>
+          <button class="done">✓</button>
+          <button class="pause">PAUSE</button>
+          <button class="delete">✕</button>
+        </li>
+      </template>
+    </div>
+
+    
+  </body>
+</html>
