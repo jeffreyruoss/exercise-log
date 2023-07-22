@@ -8,8 +8,8 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/exercise-log/assets/favicon-d61e6379.webp" type="image/x-icon" />
-    <script type="module" crossorigin src="/exercise-log/assets/index-c496c07a.js"></script>
-    <link rel="stylesheet" href="/exercise-log/assets/index-f39036c9.css">
+    <script type="module" crossorigin src="/exercise-log/assets/index-c010ab27.js"></script>
+    <link rel="stylesheet" href="/exercise-log/assets/index-43ffe51d.css">
   </head>
   <body>
     <div id="top-bar" class="pulse">
@@ -41,7 +41,10 @@
     </div>
 
     <div class="site-wrap">
-      <p class="last-updated-container"><span class="label">Last updated:</span> <span id="last-updated">Never</span></p>
+      <div class="grid">
+        <p class="last-updated-container"><span class="label">Last updated:</span> <span id="last-updated">Never</span></p>
+        <p id="logged-in-status"></p>
+      </div>
       <div class="grid">
         <form id="new-exercise-form" class="flex">
           <input id="new-exercise-name" type="text" placeholder="New exercise" required />
