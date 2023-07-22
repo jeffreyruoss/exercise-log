@@ -41,10 +41,46 @@ registerForm.addEventListener('submit', (event) => {
     });
 });
 
+const loginForm = document.getElementById('login-form');
+loginForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const emailInput = document.getElementById('login-email');
+  const passwordInput = document.getElementById('login-password');
+  const email = emailInput.value;
+  const password = passwordInput.value;
+
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // User is signed in
+      var user = userCredential.user;
+      alert("User logged in successfully.");
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert(errorMessage);
+    });
+});
+
+
+// log out
+const logoutButton = document.getElementById('logout-button');
+logoutButton.addEventListener('click', () => {
+  firebase.auth().signOut()
+    .then(() => {
+      alert("User signed out successfully.");
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert(errorMessage);
+    });
+});
+
 // check if user is logged in or not
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log(user.email);
+    console.log(`${user.email} is signed in`);
 
   } else {
     console.log("user is not signed in");
