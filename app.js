@@ -79,12 +79,14 @@ logoutButton.addEventListener('click', () => {
 
 // check if user is logged in or not
 firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    console.log(`${user.email} is signed in`);
+  const loggedInStatus = document.getElementById('logged-in-status');
 
+  if (user) {
+    loggedInStatus.textContent = `${user.email} is signed in`;
   } else {
-    console.log("user is not signed in");
+    loggedInStatus.textContent = `No user is signed in`;
   }
+
 });
 
 

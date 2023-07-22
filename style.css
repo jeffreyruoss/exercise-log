@@ -61,6 +61,10 @@ h2 {
 #last-updated {
   color: #468FAA;
 }
+#logged-in-status {
+  color: #CC7F11;
+  text-align: right;
+}
 
 /* Temp mobile styles until I redo responsive */
 @media (min-width: 0) and (max-width: 767px) {
