@@ -1,5 +1,14 @@
-firebase.initializeApp(firebaseConfig);
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+// import 'firebase/firestore';
+import { firebaseConfig } from './firebaseConfig.js';
 
+// Initialize Firebase
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
+}
 
 
 const localTopBar = () => {
