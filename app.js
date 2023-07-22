@@ -1,3 +1,7 @@
+firebase.initializeApp(firebaseConfig);
+
+
+
 const localTopBar = () => {
   const topBar = document.getElementById('top-bar');
   if (window.location.hostname === 'localhost') {
@@ -5,6 +9,38 @@ const localTopBar = () => {
   }
 }
 localTopBar();
+
+
+const registerForm = document.getElementById('register-form');
+registerForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const emailInput = document.getElementById('register-email');
+  const passwordInput = document.getElementById('register-password');
+  const email = emailInput.value;
+  const password = passwordInput.value;
+
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // User is signed in
+      var user = userCredential.user;
+      alert("User registered successfully.");
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      alert(errorMessage);
+    });
+});
+
+// check if user is logged in or not
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log(user.email);
+
+  } else {
+    console.log("user is not signed in");
+  }
+});
 
 
 class Exercise {
