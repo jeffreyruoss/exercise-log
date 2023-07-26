@@ -1,6 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-// import 'firebase/firestore';
+import 'firebase/compat/firestore';
 import { firebaseConfig } from './firebaseConfig.js';
 
 // Initialize Firebase
@@ -10,6 +10,10 @@ if (!firebase.apps.length) {
   firebase.app();
 }
 
+// Initialize Firestore through Firebase
+const db = firebase.firestore();
+
+let exercises = [];
 
 const localTopBar = () => {
   const topBar = document.getElementById('top-bar');
@@ -83,11 +87,59 @@ firebase.auth().onAuthStateChanged((user) => {
 
   if (user) {
     loggedInStatus.textContent = `${user.email} is signed in`;
+    loadExercises();
   } else {
     loggedInStatus.textContent = `No user is signed in`;
   }
 
 });
+
+
+const loadExercises = () => {
+
+  // get exercises from local storage
+  // exercises = JSON.parse(localStorage.getItem('exercises') || "[]").map(exercise => 
+  //   new Exercise(exercise.name, new Date(exercise.timestamp), exercise.paused, exercise.up)
+  // );
+
+  // get exercises from firestore
+  let user = firebase.auth().currentUser;
+  if (user) {
+    let uid = user.uid;
+    db.collection("users").doc(uid).collection("exercises").doc("exerciseData").get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Exercises document data:", doc.data());
+          let exercisesObject = doc.data();
+          let exercisesArray = [];
+          for (let key in exercisesObject) {
+            exercisesArray.push(exercisesObject[key]);
+          }
+          exercises = exercisesArray.map(exercise =>
+            new Exercise(exercise.name, new Date(exercise.timestamp), exercise.paused, exercise.up)
+          );
+          render();
+          loadLastUpdated();
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No exercises document!");
+            if (!exercises.length) {
+              exercises = ['exercise 1', 'exercise 2', 'exercise 3'].map(name => new Exercise(name));
+            }
+
+            render();
+            loadLastUpdated();
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting exercises document:", error);
+      });
+  } else {
+    console.log("No user is signed in.");
+  }
+};
+
+
 
 
 class Exercise {
@@ -109,13 +161,7 @@ class Exercise {
   }
 }
 
-let exercises = JSON.parse(localStorage.getItem('exercises') || "[]").map(exercise => 
-  new Exercise(exercise.name, new Date(exercise.timestamp), exercise.paused, exercise.up)
-);
 
-if (!exercises.length) {
-  exercises = ['exercise 1', 'exercise 2', 'exercise 3'].map(name => new Exercise(name));
-}
 
 const loadLastUpdated = () => {
   const lastUpdated = document.querySelector('#last-updated');
@@ -238,6 +284,8 @@ window.saveExercise = index => {
 
   updateLastUpdated();
   render();
+
+  saveExercisesToFirestore();
 };
 
 window.deleteExercise = index => {
@@ -293,6 +341,25 @@ const saveExerciseToClipboard = () => {
 const saveButton = document.getElementById('save-button');
 saveButton.addEventListener('click', saveExerciseToClipboard);
 
-
-render();
-loadLastUpdated();
+const saveExercisesToFirestore = () => {
+  let user = firebase.auth().currentUser;
+  if (user) {
+    let uid = user.uid;
+  
+    let exercisesObject = {};
+    let exercisesArray = JSON.parse(localStorage.getItem('exercises') || "[]");
+    exercisesArray.forEach((exercise, index) => {
+      exercisesObject[index] = exercise;
+    });
+  
+    db.collection("users").doc(uid).collection("exercises").doc("exerciseData").set(exercisesObject)
+      .then(() => {
+        console.log("Exercises document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing exercises document: ", error);
+      });
+  } else {
+    console.log("No user is signed in.");
+  }
+};
