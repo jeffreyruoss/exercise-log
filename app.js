@@ -363,3 +363,24 @@ const saveExercisesToFirestore = () => {
     console.log("No user is signed in.");
   }
 };
+
+const importExercisesFromClipboard = () => {
+  navigator.clipboard.readText()
+    .then(text => {
+      try {
+        const exercisesArray = JSON.parse(text);
+        exercises = exercisesArray.map(exercise => new Exercise(exercise.name, new Date(exercise.timestamp), exercise.paused, exercise.up));
+        localStorage.setItem('exercises', JSON.stringify(exercises));
+        render();
+        updateLastUpdated();
+        showNotification('Exercises imported successfully', 'success');
+      } catch (error) {
+        showNotification('Invalid data in clipboard', 'error');
+      }
+    })
+    .catch(error => {
+      showNotification('Error reading from clipboard', 'error');
+    });
+}
+const importButton = document.getElementById('import-button');
+importButton.addEventListener('click', importExercisesFromClipboard);
