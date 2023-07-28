@@ -338,14 +338,6 @@ const showNotification = (message, type = 'success') => {
   }, 3000);
 }
 
-const saveExerciseToClipboard = () => {
-  const exercisesString = JSON.stringify(exercises);
-  navigator.clipboard.writeText(exercisesString);
-  showNotification('Copied to clipboard', 'success');
-};
-const saveButton = document.getElementById('save-button');
-saveButton.addEventListener('click', saveExerciseToClipboard);
-
 const saveExercisesToFirestore = () => {
   console.log("Saving exercises to Firestore");
   let user = firebase.auth().currentUser;
