@@ -233,6 +233,7 @@ window.moveUp = name => {
     render();
   }
   updateLastUpdated();
+  saveExercisesToFirestore();
 };  
 
 window.markAsDone = name => {
@@ -244,6 +245,7 @@ window.markAsDone = name => {
     render();
   }
   updateLastUpdated();
+  saveExercisesToFirestore();
 };
 
 window.togglePause = name => {
@@ -254,6 +256,7 @@ window.togglePause = name => {
     render();
   }
   updateLastUpdated();
+  saveExercisesToFirestore();
 };
 
 const editExercise = index => {
@@ -294,6 +297,7 @@ window.deleteExercise = index => {
     localStorage.setItem('exercises', JSON.stringify(exercises));
     render();
     updateLastUpdated();
+    saveExercisesToFirestore();
   }
 };
 
@@ -308,6 +312,7 @@ form.addEventListener('submit', (event) => {
     nameInput.value = ''; 
     render();
     updateLastUpdated();
+    saveExercisesToFirestore();
   }
 });
 
@@ -342,6 +347,7 @@ const saveButton = document.getElementById('save-button');
 saveButton.addEventListener('click', saveExerciseToClipboard);
 
 const saveExercisesToFirestore = () => {
+  console.log("Saving exercises to Firestore");
   let user = firebase.auth().currentUser;
   if (user) {
     let uid = user.uid;
@@ -373,6 +379,7 @@ const importExercisesFromClipboard = () => {
         localStorage.setItem('exercises', JSON.stringify(exercises));
         render();
         updateLastUpdated();
+        saveExercisesToFirestore();
         showNotification('Exercises imported successfully', 'success');
       } catch (error) {
         showNotification('Invalid data in clipboard', 'error');
