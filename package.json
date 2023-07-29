@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build": "vite build",
     "serve": "vite preview",
     "deploy": "gh-pages -d dist && echo 'https://github.com/jeffreyruoss/exercise-log/tree/gh-pages'"
