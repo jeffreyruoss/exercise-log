@@ -2,6 +2,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { firebaseConfig } from './firebaseConfig.js';
+import { Exercise } from '/components/Exercise.js';
 
 // Initialize Firebase
 if (!firebase.apps.length) {
@@ -138,30 +139,6 @@ const loadExercises = () => {
     console.log("No user is signed in.");
   }
 };
-
-
-
-
-class Exercise {
-  constructor(name, timestamp = null, paused = false, up = false) {
-    this.name = name;
-    this.timestamp = timestamp || this.generateRandomTimestamp();
-    this.paused = paused;
-    this.up = up;
-  }
-
-  generateRandomTimestamp() {
-    const now = new Date().getTime();
-    const oneWeekAgo = now - 7 * 24 * 60 * 60 * 1000;
-    return new Date(oneWeekAgo + Math.random() * (now - oneWeekAgo));
-  }
-
-  updateTimestamp() {
-    this.timestamp = new Date();
-  }
-}
-
-
 
 const loadLastUpdated = () => {
   const lastUpdated = document.querySelector('#last-updated');
