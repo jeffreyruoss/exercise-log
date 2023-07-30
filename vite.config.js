@@ -6,6 +6,7 @@ export default {
     outDir: 'dist',  // the output directory for the build
   },
   server: {
+    host: '192.168.0.56',
     port: 5500  // the port the dev server will run on
   }
 }
