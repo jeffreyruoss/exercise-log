@@ -24,7 +24,6 @@ const localTopBar = () => {
 }
 localTopBar();
 
-
 const registerForm = document.getElementById('register-form');
 registerForm.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -103,15 +102,7 @@ firebase.auth().onAuthStateChanged((user) => {
   }
 });
 
-
 const loadExercises = () => {
-
-  // get exercises from local storage
-  // exercises = JSON.parse(localStorage.getItem('exercises') || "[]").map(exercise => 
-  //   new Exercise(exercise.name, new Date(exercise.timestamp), exercise.paused, exercise.up)
-  // );
-
-  // get exercises from firestore
   let user = firebase.auth().currentUser;
   if (user) {
     let uid = user.uid;
@@ -130,12 +121,10 @@ const loadExercises = () => {
           render();
           loadLastUpdated();
         } else {
-          // doc.data() will be undefined in this case
           console.log("No exercises document!");
             if (!exercises.length) {
               exercises = ['exercise 1', 'exercise 2', 'exercise 3'].map(name => new Exercise(name));
             }
-
             render();
             loadLastUpdated();
         }
@@ -180,7 +169,6 @@ const render = () => {
     const li = clone.querySelector('li');
     li.id = `li-${index}`;
 
-
     const nameInput = clone.querySelector('.name');
     nameInput.id = `name-${index}`;
     nameInput.value = exercise.name;
@@ -196,7 +184,7 @@ const render = () => {
     clone.querySelector('.done').onclick = () => markAsDone(exercise.name);
     const pauseButton = clone.querySelector('.pause');
     pauseButton.onclick = () => togglePause(exercise.name);
-    pauseButton.textContent = exercise.paused ? 'UNPAUSE' : 'PAUSE';
+    // pauseButton.textContent = exercise.paused ? 'UNPAUSE' : 'PAUSE';
     clone.querySelector('.delete').onclick = () => deleteExercise(index);
 
     if (exercise.paused) {

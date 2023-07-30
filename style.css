@@ -53,6 +53,10 @@
   }
 }
 
+.info-bar {
+  justify-content: space-between;
+}
+
 h2 {
   margin-bottom: 15px;
 }
@@ -69,6 +73,7 @@ h2 {
   color: #468FAA;
 }
 #logged-in-status {
+  margin-right: 30px;
   color: #CC7F11;
   text-align: right;
 }
@@ -137,7 +142,7 @@ h2 {
     margin-left: 5px;
     border: none;
     padding: 0 10px;
-    width: auto;
+    width: 70px;
   }
   & li {
     border: 1px solid transparent;
