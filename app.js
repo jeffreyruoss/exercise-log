@@ -196,6 +196,11 @@ const render = () => {
       list.appendChild(clone);
     }
   });
+  // display none to all .loading elements
+  const loadingElements = document.querySelectorAll('.loading');
+  loadingElements.forEach((element) => {
+    element.style.display = 'none';
+  });
 }
 
 window.moveUp = name => {

@@ -1,3 +1,24 @@
+
+.loading {
+  text-align: center;
+  & svg {
+    width: 50px;
+    animation: spin 1s linear infinite;
+  }
+  & path {
+    fill: #4790AA
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /*
  * Top bar
  */
