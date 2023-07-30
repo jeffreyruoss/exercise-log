@@ -59,6 +59,8 @@ loginForm.addEventListener('submit', (event) => {
       // User is signed in
       var user = userCredential.user;
       alert("User logged in successfully.");
+      const auth = document.getElementById('auth');
+      auth.style.display = 'none';
     })
     .catch((error) => {
       var errorCode = error.code;
@@ -69,11 +71,15 @@ loginForm.addEventListener('submit', (event) => {
 
 
 // log out
-const logoutButton = document.getElementById('logout-button');
-logoutButton.addEventListener('click', () => {
+const logoutLink = document.getElementById('logout-link');
+logoutLink.addEventListener('click', (e) => {
+  e.preventDefault();
   firebase.auth().signOut()
     .then(() => {
       alert("User signed out successfully.");
+      // #dashboard display none
+      const dashboard = document.getElementById('dashboard');
+      dashboard.style.display = 'none';
     })
     .catch((error) => {
       var errorCode = error.code;
@@ -85,14 +91,16 @@ logoutButton.addEventListener('click', () => {
 // check if user is logged in or not
 firebase.auth().onAuthStateChanged((user) => {
   const loggedInStatus = document.getElementById('logged-in-status');
-
   if (user) {
     loggedInStatus.textContent = `${user.email} is signed in`;
+    const dashboard = document.getElementById('dashboard');
+    dashboard.style.display = 'block';
     loadExercises();
   } else {
     loggedInStatus.textContent = `No user is signed in`;
+    const auth = document.getElementById('auth');
+    auth.style.display = 'block';
   }
-
 });
 
 

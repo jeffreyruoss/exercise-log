@@ -16,68 +16,68 @@
 
     <div id="notification-bar" class="notification-bar"></div>
 
-    <div class="container">
-      <h2>Register</h2>
-      <form id="register-form" class="flex">
-        <input id="register-email" type="email" placeholder="Email" required />
-        <input id="register-password" type="password" placeholder="Password" required />
-        <button type="submit" class="register-button">Register</button>
-      </form>
-    </div>
-
-    <div class="container">
-      <button id="logout-button">Log out</button>
-    </div>
-
-    <div class="container">
-      <h2>Log in</h2>
-      <form id="login-form" class="flex">
-        <input id="login-email" type="email" placeholder="Email" required />
-        <input id="login-password" type="password" placeholder="Password" required />
-        <button type="submit" class="login-button">Log in</button>
-      </form>
-    </div>
-
     <div class="site-wrap">
-      <div class="grid">
-        <p class="last-updated-container"><span class="label">Last updated:</span> <span id="last-updated">Never</span></p>
-        <p id="logged-in-status"></p>
+      <div id="auth">
+        <div>
+          <h2>Register</h2>
+          <form id="register-form" class="flex">
+            <input id="register-email" type="email" placeholder="Email" required />
+            <input id="register-password" type="password" placeholder="Password" required />
+            <button type="submit" class="register-button">Register</button>
+          </form>
+        </div>
+    
+        <div>
+          <h2>Log in</h2>
+          <form id="login-form" class="flex">
+            <input id="login-email" type="email" placeholder="Email" required />
+            <input id="login-password" type="password" placeholder="Password" required />
+            <button type="submit" class="login-button">Log in</button>
+          </form>
+        </div>
       </div>
-      <div class="grid">
-        <form id="new-exercise-form" class="flex">
-          <input id="new-exercise-name" type="text" placeholder="New exercise" required />
-          <button type="submit" class="add-exercise-button" style="margin-left: 15px;">Add Exercise</button>
-        </form>
-      </div>
-  
-      <div class="exercise-lists">
-        <h2>Today's Exercise Plan</h2>
-        <ul id="today-exercise-plan-list"></ul>
 
-        <h2>Available Exercises for Today</h2>
-        <ul id="available-exercises"></ul>
+      <div id="dashboard">
+        <div class="grid">
+          <p class="last-updated-container"><span class="label">Last updated:</span> <span id="last-updated">Never</span></p>
+          <p id="logged-in-status"></p>
+          <a href="#" id="logout-link">Log out</a>
+        </div>
   
-        <h2>Recent Exercises for Rest and Recovery</h2>
-        <ul id="exercise-list"></ul>
-        <h2>Paused</h2>
-        <ul id="paused-exercise-list"></ul>
+        <div class="grid">
+          <form id="new-exercise-form" class="flex">
+            <input id="new-exercise-name" type="text" placeholder="New exercise" required />
+            <button type="submit" class="add-exercise-button" style="margin-left: 15px;">Add Exercise</button>
+          </form>
+        </div>
+    
+        <div class="exercise-lists">
+          <h2>Today's Exercise Plan</h2>
+          <ul id="today-exercise-plan-list"></ul>
+  
+          <h2>Available Exercises for Today</h2>
+          <ul id="available-exercises"></ul>
+    
+          <h2>Recent Exercises for Rest and Recovery</h2>
+          <ul id="exercise-list"></ul>
+          <h2>Paused</h2>
+          <ul id="paused-exercise-list"></ul>
+        </div>
+  
+        <button type="submit" id="import-button">Import from clipboard</button>
+    
+        <template id="exercise-template">
+          <li>
+            <input class="name" type="text" readonly /> 
+            <input class="tags" type="text" value="Add tags" readonly />
+            <input class="timestamp" type="text" readonly />
+            <button class="up">&uarr;</button>
+            <button class="done">✓</button>
+            <button class="pause">PAUSE</button>
+            <button class="delete">✕</button>
+          </li>
+        </template>
       </div>
-  
-      <template id="exercise-template">
-        <li>
-          <input class="name" type="text" readonly /> 
-          <input class="tags" type="text" value="Add tags" readonly />
-          <input class="timestamp" type="text" readonly />
-          <button class="up">&uarr;</button>
-          <button class="done">✓</button>
-          <button class="pause">PAUSE</button>
-          <button class="delete">✕</button>
-        </li>
-      </template>
-    </div>
-
-    <div class="container">
-      <button type="submit" id="import-button">Import from clipboard</button>
     </div>
 
     <script src="app.js" type="module"></script>
