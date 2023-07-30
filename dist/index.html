@@ -8,8 +8,8 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/exercise-log/assets/favicon-d61e6379.webp" type="image/x-icon" />
-    <script type="module" crossorigin src="/exercise-log/assets/index-1a87fbfc.js"></script>
-    <link rel="stylesheet" href="/exercise-log/assets/index-43ffe51d.css">
+    <script type="module" crossorigin src="/exercise-log/assets/index-9fd6c474.js"></script>
+    <link rel="stylesheet" href="/exercise-log/assets/index-0a21485e.css">
   </head>
   <body>
     <div id="top-bar" class="pulse">
@@ -18,68 +18,75 @@
 
     <div id="notification-bar" class="notification-bar"></div>
 
-    <div class="container">
-      <h2>Register</h2>
-      <form id="register-form" class="flex">
-        <input id="register-email" type="email" placeholder="Email" required />
-        <input id="register-password" type="password" placeholder="Password" required />
-        <button type="submit" class="register-button">Register</button>
-      </form>
-    </div>
-
-    <div class="container">
-      <button id="logout-button">Log out</button>
-    </div>
-
-    <div class="container">
-      <h2>Log in</h2>
-      <form id="login-form" class="flex">
-        <input id="login-email" type="email" placeholder="Email" required />
-        <input id="login-password" type="password" placeholder="Password" required />
-        <button type="submit" class="login-button">Log in</button>
-      </form>
-    </div>
-
     <div class="site-wrap">
-      <div class="grid">
-        <p class="last-updated-container"><span class="label">Last updated:</span> <span id="last-updated">Never</span></p>
-        <p id="logged-in-status"></p>
+      <div id="auth">
+        <div>
+          <h2>Register</h2>
+          <form id="register-form" class="flex">
+            <input id="register-email" type="email" placeholder="Email" required />
+            <input id="register-password" type="password" placeholder="Password" required />
+            <button type="submit" class="register-button">Register</button>
+          </form>
+        </div>
+    
+        <div>
+          <h2>Log in</h2>
+          <form id="login-form" class="flex">
+            <input id="login-email" type="email" placeholder="Email" required />
+            <input id="login-password" type="password" placeholder="Password" required />
+            <button type="submit" class="login-button">Log in</button>
+          </form>
+        </div>
       </div>
-      <div class="grid">
-        <form id="new-exercise-form" class="flex">
-          <input id="new-exercise-name" type="text" placeholder="New exercise" required />
-          <button type="submit" class="add-exercise-button" style="margin-left: 15px;">Add Exercise</button>
-        </form>
-      </div>
-  
-      <div class="exercise-lists">
-        <h2>Today's Exercise Plan</h2>
-        <ul id="today-exercise-plan-list"></ul>
 
-        <h2>Available Exercises for Today</h2>
-        <ul id="available-exercises"></ul>
+      <div id="dashboard">
+        <div class="flex info-bar">
+          <p class="last-updated-container">
+            <span class="label">Last updated:</span> <span id="last-updated">Never</span>
+          </p>
+          <p>
+            <span id="logged-in-status"></span> 
+            <a href="#" id="logout-link">Log out</a>
+          </p>
+        </div>
   
-        <h2>Recent Exercises for Rest and Recovery</h2>
-        <ul id="exercise-list"></ul>
-        <h2>Paused</h2>
-        <ul id="paused-exercise-list"></ul>
+        <div class="grid">
+          <form id="new-exercise-form" class="flex">
+            <input id="new-exercise-name" type="text" placeholder="New exercise" required />
+            <button type="submit" class="add-exercise-button" style="margin-left: 15px;">Add Exercise</button>
+          </form>
+        </div>
+    
+        <div class="exercise-lists">
+          <h2>Today's Exercise Plan</h2>
+          <div class="loading"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>loading</title><path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" /></svg></div>
+          <ul id="today-exercise-plan-list"></ul>
+  
+          <h2>Available Exercises for Today</h2>
+          <div class="loading"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>loading</title><path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" /></svg></div>
+          <ul id="available-exercises"></ul>
+    
+          <h2>Recent Exercises for Rest and Recovery</h2>
+          <div class="loading"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>loading</title><path d="M12,4V2A10,10 0 0,0 2,12H4A8,8 0 0,1 12,4Z" /></svg></div>
+          <ul id="exercise-list"></ul>
+          <h2>Paused</h2>
+          <ul id="paused-exercise-list"></ul>
+        </div>
+  
+        <button type="submit" id="import-button">Import from clipboard</button>
+    
+        <template id="exercise-template">
+          <li>
+            <input class="name" type="text" readonly /> 
+            <input class="tags" type="text" value="Add tags" readonly />
+            <input class="timestamp" type="text" readonly />
+            <button class="up"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22"><title>arrow-up</title><path d="M10 5H12V6H13V7H14V8H15V9H16V11H14V10H13V9H12V18H10V9H9V10H8V11H6V9H7V8H8V7H9V6H10" /></svg></button>
+            <button class="done"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>check-bold</title><path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" /></svg></button>
+            <button class="pause"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>pause</title><path d="M14,19H18V5H14M6,19H10V5H6V19Z" /></svg></button>
+            <button class="delete"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>trash-can</title><path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M9,8H11V17H9V8M13,8H15V17H13V8Z" /></svg></button>
+          </li>
+        </template>
       </div>
-  
-      <template id="exercise-template">
-        <li>
-          <input class="name" type="text" readonly /> 
-          <input class="tags" type="text" value="Add tags" readonly />
-          <input class="timestamp" type="text" readonly />
-          <button class="up">&uarr;</button>
-          <button class="done">✓</button>
-          <button class="pause">PAUSE</button>
-          <button class="delete">✕</button>
-        </li>
-      </template>
-    </div>
-
-    <div class="container">
-      <button type="submit" id="import-button">Import from clipboard</button>
     </div>
 
     
