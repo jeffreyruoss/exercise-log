@@ -2,6 +2,7 @@
   "name": "exercise-log",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "app.js",
   "scripts": {
     "dev": "vite --open",
@@ -16,7 +17,9 @@
     "firebase": "^10.1.0"
   },
   "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.4.3",
     "gh-pages": "^5.0.0",
+    "svelte": "^4.1.1",
     "vite": "^4.4.6"
   }
 }

@@ -2,7 +2,14 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { firebaseConfig } from './firebaseConfig.js';
-import { Exercise } from '/components/Exercise.js';
+import { Exercise } from '/src/components/Exercise.js';
+
+import App from './src/App.svelte';
+
+const app = new App({
+  target: document.body,
+});
+export default app;
 
 // Initialize Firebase
 if (!firebase.apps.length) {
@@ -15,14 +22,6 @@ if (!firebase.apps.length) {
 const db = firebase.firestore();
 
 let exercises = [];
-
-const localTopBar = () => {
-  const topBar = document.getElementById('top-bar');
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    topBar.style.display = 'block';
-  }
-}
-localTopBar();
 
 const registerForm = document.getElementById('register-form');
 registerForm.addEventListener('submit', (event) => {
