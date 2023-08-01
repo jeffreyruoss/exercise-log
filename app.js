@@ -136,21 +136,6 @@ const loadExercises = () => {
   }
 };
 
-const loadLastUpdated = () => {
-  const lastUpdated = document.querySelector('#last-updated');
-  const timestamp = localStorage.getItem('last-updated');
-  if (timestamp) {
-    lastUpdated.textContent = timestamp;
-  }
-}
-
-const updateLastUpdated = () => {
-  const now = new Date();
-  const timestamp = formatTimestamp(now);
-  document.querySelector('#last-updated').textContent = timestamp;
-  localStorage.setItem('last-updated', timestamp);
-}
-
 const render = () => {
   const list = document.getElementById('exercise-list');
   const pausedList = document.getElementById('paused-exercise-list'); 
