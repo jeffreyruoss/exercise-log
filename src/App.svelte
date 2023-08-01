@@ -12,7 +12,10 @@
 	import ExerciseLists from "./components/ExerciseLists.svelte";
 	import ImportExercises from "./components/ImportExercises.svelte";
 	import NotificationBar from "./components/NotificationBar.svelte";
-	
+
+
+  import { showNotification } from './store.js';
+
 	// Initialize Firebase
 	if (!firebase.apps.length) {
 		firebase.initializeApp(firebaseConfig);
@@ -207,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    localStorage.setItem('exercises', JSON.stringify(exercises));
 	    render();
 	  }
+		showNotification('Exercise moved', 'success');
 	  saveExercisesToFirestore();
 	};  
 	
@@ -299,16 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	  return new Intl.DateTimeFormat('en-US', options).format(timestamp);
 	}
 	
-	const notificationBar = document.getElementById('notification-bar');
-	const showNotification = (message, type = 'success') => {
-	  notificationBar.textContent = message;
-	  notificationBar.classList.add(type, 'show');
-	  setTimeout(() => {
-	    notificationBar.textContent = '';
-	    notificationBar.classList.remove(type, 'show');
-	  }, 3000);
-	}
-	
 	const saveExercisesToFirestore = () => {
 	  console.log("Saving exercises to Firestore");
 	  let user = firebase.auth().currentUser;
@@ -342,13 +336,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	        localStorage.setItem('exercises', JSON.stringify(exercises));
 	        render();
 	        saveExercisesToFirestore();
-	        showNotification('Exercises imported successfully', 'success');
+	        // showNotification('Exercises imported successfully', 'success');
 	      } catch (error) {
-	        showNotification('Invalid data in clipboard', 'error');
+	        // showNotification('Invalid data in clipboard', 'error');
 	      }
 	    })
 	    .catch(error => {
-	      showNotification('Error reading from clipboard', 'error');
+	      // showNotification('Error reading from clipboard', 'error');
 	    });
 	}
 	const importButton = document.getElementById('import-button');
