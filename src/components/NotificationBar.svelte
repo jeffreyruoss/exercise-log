@@ -29,7 +29,4 @@
     text-align: center;
     color: #fff;
   }
-  .success {
-    /* add your styles here */
-  }
 </style>

@@ -222,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    localStorage.setItem('exercises', JSON.stringify(exercises));
 	    render();
 	  }
+		showNotification('Exercise completed', 'success');
 	  saveExercisesToFirestore();
 	};
 	
@@ -233,6 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	    render();
 	  }
 	  saveExercisesToFirestore();
+		const message = exercise.paused ? 'Exercise paused' : 'Exercise unpaused';
+		showNotification(message, 'success');
 	};
 	
 	window.editExercise = index => {
@@ -243,12 +246,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	  document.getElementById(`name-${index}`).addEventListener('keypress', event => {
 	    if (event.key === 'Enter') {
 	      saveExercise(index);
+				showNotification('Exercise updated', 'success');
 	    }
 	  });
 		
 	  document.getElementById(`timestamp-${index}`).addEventListener('keypress', event => {
 	    if (event.key === 'Enter') {
 	      saveExercise(index);
+				showNotification('Exercise updated', 'success');
 	    }
 	  });
 	};
@@ -271,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    exercises.splice(index, 1);
 	    localStorage.setItem('exercises', JSON.stringify(exercises));
 	    render();
-
+			showNotification('Exercise deleted', 'success');
 	    saveExercisesToFirestore();
 	  }
 	};
@@ -286,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	    localStorage.setItem('exercises', JSON.stringify(exercises));
 	    nameInput.value = ''; 
 	    render();
-
+			showNotification('Exercise added', 'success');
 	    saveExercisesToFirestore();
 	  }
 	});
@@ -336,13 +341,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	        localStorage.setItem('exercises', JSON.stringify(exercises));
 	        render();
 	        saveExercisesToFirestore();
-	        // showNotification('Exercises imported successfully', 'success');
+	        showNotification('Exercises imported successfully', 'success');
 	      } catch (error) {
-	        // showNotification('Invalid data in clipboard', 'error');
+	        showNotification('Invalid data in clipboard', 'error');
 	      }
 	    })
 	    .catch(error => {
-	      // showNotification('Error reading from clipboard', 'error');
+	      showNotification('Error reading from clipboard', 'error');
 	    });
 	}
 	const importButton = document.getElementById('import-button');
